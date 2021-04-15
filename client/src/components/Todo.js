@@ -1,10 +1,22 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { completedTodo, fetchTodoList } from '../actions';
 import cross from '../img/delete.svg';
+import confirm from '../img/confirm.svg';
 import '../style/Todo.css';
 
 class Todo extends React.Component {
+  onToggleStatus = event => {
+    event.preventDefault();
+
+    this.props.completedTodo(
+      this.props.id,
+      this.props.todo[this.props.id].status ? false : true
+    );
+  };
+
   renderInput({ input, label }) {
     return (
       <input
@@ -17,11 +29,21 @@ class Todo extends React.Component {
     );
   }
 
+  renderCheckmark() {
+    if (this.props.todo[this.props.id].status)
+      return (
+        <img src={confirm} alt="confirm" className="adding__confirm-icon" />
+      );
+  }
+
   renderAction = action => {
     if (action === 'confirm') {
       return (
-        <button className="adding__confirm">
-          <div className="adding__circle"></div>
+        <button
+          onClick={e => this.onToggleStatus(e)}
+          className="adding__confirm"
+        >
+          <div className="adding__circle">{this.renderCheckmark()}</div>
         </button>
       );
     }
@@ -58,4 +80,12 @@ class Todo extends React.Component {
   }
 }
 
-export default reduxForm({ form: 'todo' })(Todo);
+const setupReduxForm = reduxForm({ form: 'todo' })(Todo);
+
+const mapStateToProps = state => {
+  return { todo: state.todoList };
+};
+
+export default connect(mapStateToProps, { completedTodo, fetchTodoList })(
+  setupReduxForm
+);

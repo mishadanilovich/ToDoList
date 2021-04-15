@@ -1,12 +1,14 @@
 import React from 'react';
 import Newtodo from './NewTodo';
-import ComplitedTodo from './ComplitedTodo';
+import CompletedTodo from './CompletedTodo';
+import Header from './Header';
 
 const TodoList = () => {
   return (
     <div>
+      <Header />
       <Newtodo />
-      <ComplitedTodo />
+      <CompletedTodo />
     </div>
   );
 };

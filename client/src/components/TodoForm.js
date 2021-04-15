@@ -8,7 +8,12 @@ class TodoForm extends React.Component {
     return (
       <div className="add__field">
         <label className="add__field-title">{label}</label>
-        <input className="add__field-input" {...input} autoComplete="off" />
+        <input
+          placeholder={`Enter a ${label}`}
+          className="add__field-input"
+          {...input}
+          autoComplete="off"
+        />
       </div>
     );
   }

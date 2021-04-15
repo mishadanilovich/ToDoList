@@ -1,9 +1,18 @@
-import { ADD_TODO, DELETE_TODOLIST, FETCH_TODOLIST, FETCH_TODO } from './types';
+import {
+  ADD_TODO,
+  DELETE_TODOLIST,
+  FETCH_TODOLIST,
+  FETCH_TODO,
+  COMPLETED_TODO,
+} from './types';
 import history from '../history';
 import todoList from '../apis/todoList';
 
 export const addTodo = formValues => async dispatch => {
-  const response = await todoList.post('/todoList', { ...formValues });
+  const response = await todoList.post('/todoList', {
+    ...formValues,
+    status: false,
+  });
 
   dispatch({ type: ADD_TODO, payload: response.data });
   history.push('/');
@@ -26,4 +35,10 @@ export const deleteTodoList = id => async dispatch => {
 
   dispatch({ type: DELETE_TODOLIST, payload: id });
   history.push('/');
+};
+
+export const completedTodo = (id, checked) => async dispatch => {
+  const response = await todoList.patch(`/todoList/${id}`, { status: checked });
+
+  dispatch({ type: COMPLETED_TODO, payload: response.data });
 };
