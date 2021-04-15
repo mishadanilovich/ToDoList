@@ -1,0 +1,44 @@
+.header {
+  width: 100%;
+  position: relative;
+  padding-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.header__title {
+  font-size: 7.2rem;
+  font-family: Lemon;
+  font-style: normal;
+  font-weight: normal;
+  text-align: center;
+}
+
+.header__history-link {
+  position: absolute;
+  right: 5.8rem;
+  top: 5.4rem;
+}
+
+.adding__new-note {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 12.5rem;
+  margin: 0 auto 2.8rem;
+  border: none;
+  background: none;
+  color: #000;
+
+  cursor: pointer;
+
+  font-size: 4.2rem;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  text-align: center;
+}
+
+.adding__new-note:active,
+.adding__new-note:focus {
+  outline: none;
+}
