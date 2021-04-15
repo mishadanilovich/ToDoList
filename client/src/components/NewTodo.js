@@ -1,35 +1,42 @@
 import React from 'react';
-import _ from 'lodash';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import _ from 'lodash';
+
 import { fetchTodoList } from '../actions';
 import Todo from './Todo';
 import plus from '../img/plus.svg';
+
+import '../style/NewTodo.css';
 
 class NewTodo extends React.Component {
   componentDidMount() {
     this.props.fetchTodoList();
   }
 
-  renderTodoList = () => {
+  renderTodoList() {
+    if (!this.props.todoList) return <div>Loading...</div>;
+
     return this.props.todoList.map(todo => {
       return (
         <div key={todo.id}>
-          <Todo initialValues={_.pick(todo, 'title', 'description')} />
+          <Todo
+            initialValues={_.pick(todo, 'title', 'description')}
+            id={todo.id}
+          />
         </div>
       );
     });
-  };
+  }
 
   render() {
-    if (!this.props.todoList) return <div>Loading...</div>;
-
     return (
-      <div>
-        <button onClick={this.onAddClick} className="adding__new-note">
+      <div className="newTodo">
+        <Link to="/todolist/add" className="adding__new-note">
           <img src={plus} alt="Plus" className="adding__new-note_icon" />
           Add
-        </button>
-        {this.renderTodoList()}
+        </Link>
+        <div className="adding">{this.renderTodoList()}</div>
       </div>
     );
   }

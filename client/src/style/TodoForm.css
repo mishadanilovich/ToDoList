@@ -1,0 +1,81 @@
+.actions {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1.5rem;
+}
+
+.button {
+  width: 9rem;
+  height: 4rem;
+  font-size: 1.8rem;
+  background: #ffeac0;
+  font-size: 2.4rem;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  border-radius: 0.3rem;
+  padding: 0.5rem;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: all 0.2s;
+}
+
+.button:hover {
+  transform: translate(0.2rem, -0.2rem);
+  box-shadow: 0px 0px 1rem rgb(235, 195, 149);
+}
+
+.button__add {
+  border-radius: 0.5rem;
+  border: none;
+  outline: none;
+}
+
+.button__cancel {
+  display: block;
+  text-decoration: none;
+  color: #000;
+  display: flex;
+  align-items: center;
+}
+
+.button__cancel:link,
+.button__cancel:visited {
+  color: #000;
+}
+
+.add__field {
+  display: flex;
+  flex-direction: column;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+}
+
+.add__field:first-of-type {
+  margin-bottom: 1rem;
+}
+
+.add__field-title {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.add__field-input {
+  border: none;
+  font-size: 1.6rem;
+  background-color: #ffeac0;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.add__field-input:active,
+.add__field-input:focus {
+  outline: none;
+}

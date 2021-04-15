@@ -17,4 +17,5 @@ body {
 
 body {
   background: rgba(255, 200, 94, 0.71);
+  position: relative;
 }

@@ -1,24 +1,21 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { Link } from 'react-router-dom';
 import cross from '../img/delete.svg';
 import '../style/Todo.css';
 
 class Todo extends React.Component {
-  renderInputTitle = ({ input }) => {
-    return (
-      <input {...input} autoComplete="off" className="field field__title" />
-    );
-  };
-
-  renderInputDescrition = ({ input }) => {
+  renderInput({ input, label }) {
     return (
       <input
+        className={`field field__${
+          label === 'title' ? 'title' : 'description'
+        }`}
         {...input}
         autoComplete="off"
-        className="field field__description"
       />
     );
-  };
+  }
 
   renderAction = action => {
     if (action === 'confirm') {
@@ -31,22 +28,29 @@ class Todo extends React.Component {
 
     if (action === 'delete') {
       return (
-        <button className="adding__delete">
+        <Link
+          to={`/todolist/delete/${this.props.id}`}
+          className="adding__delete"
+        >
           <div className="adding__circle">
-            <img src={cross} alt="cross" class="adding__delete-icon" />
+            <img src={cross} alt="cross" className="adding__delete-icon" />
           </div>
-        </button>
+        </Link>
       );
     }
   };
 
   render() {
     return (
-      <form className="adding">
+      <form>
         <div className="adding__note">
           {this.renderAction('confirm')}
-          <Field name="title" component={this.renderInputTitle} />
-          <Field name="description" component={this.renderInputDescrition} />
+          <Field name="title" component={this.renderInput} label="title" />
+          <Field
+            name="description"
+            component={this.renderInput}
+            label="description"
+          />
           {this.renderAction('delete')}
         </div>
       </form>
@@ -54,4 +58,4 @@ class Todo extends React.Component {
   }
 }
 
-export default reduxForm({ form: 'todoForm' })(Todo);
+export default reduxForm({ form: 'todo' })(Todo);
