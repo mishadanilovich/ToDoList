@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -6,19 +6,22 @@ import { completedTodo, editTodo } from '../actions';
 import cross from '../img/delete.svg';
 import confirm from '../img/confirm.svg';
 import save from '../img/save.svg';
+import calendar from '../img/calendar.svg';
 import '../style/Todo.css';
 
-const renderEdit = ({ initialValues, values }, editTodo, id) => {
+const renderEdit = ({ values }, todo, editTodo, setTodo) => {
   if (
-    !(initialValues.title === values.title) ||
-    !(initialValues.description === values.description)
+    (!(todo.title === values.title) ||
+      !(todo.description === values.description)) &&
+    !todo.status
   )
     return (
       <button
         type="submit"
         onClick={e => {
           e.preventDefault();
-          editTodo(id, values);
+          editTodo(todo.id, values);
+          setTodo(values);
         }}
         className="adding__edit"
       >
@@ -29,39 +32,58 @@ const renderEdit = ({ initialValues, values }, editTodo, id) => {
     );
 };
 
+const renderCheckmark = status => {
+  if (status)
+    return <img src={confirm} alt="confirm" className="adding__confirm-icon" />;
+};
+
+const onToggleStatus = (event, todo, completedTodo) => {
+  event.preventDefault();
+
+  completedTodo(todo.id, todo.status ? false : true);
+};
+
+const renderTimer = todo => {
+  if (todo.status) {
+    const date = new Date().toLocaleDateString();
+    return (
+      <div className="date">
+        <p className="date__content">{date}</p>
+        <img src={calendar} alt="Calendar" className="adding__calendar-icon" />
+      </div>
+    );
+  }
+};
+
 const Todo = ({ completedTodo, editTodo, data }) => {
+  const [todo, setTodo] = useState({});
+
   const formik = useFormik({
     initialValues: data,
     onSubmit: values => {
-      editTodo(data.id, values);
+      setTodo(values);
     },
   });
 
-  const renderCheckmark = () => {
-    if (data.status)
-      return (
-        <img src={confirm} alt="confirm" className="adding__confirm-icon" />
-      );
-  };
-
-  const onToggleStatus = event => {
-    event.preventDefault();
-
-    completedTodo(data.id, data.status ? false : true);
-  };
+  useEffect(() => {
+    setTodo(formik.initialValues);
+  }, [formik.initialValues]);
 
   const renderAction = action => {
     if (action === 'confirm') {
       return (
-        <button onClick={onToggleStatus} className="adding__confirm">
-          <div className="adding__circle">{renderCheckmark()}</div>
+        <button
+          onClick={e => onToggleStatus(e, todo, completedTodo)}
+          className="adding__confirm"
+        >
+          <div className="adding__circle">{renderCheckmark(todo.status)}</div>
         </button>
       );
     }
 
     if (action === 'delete') {
       return (
-        <Link to={`/todolist/delete/${data.id}`} className="adding__delete">
+        <Link to={`/todolist/delete/${todo.id}`} className="adding__delete">
           <div className="adding__circle">
             <img src={cross} alt="cross" className="adding__delete-icon" />
           </div>
@@ -92,7 +114,8 @@ const Todo = ({ completedTodo, editTodo, data }) => {
         className="field field__description"
         autoComplete="off"
       />
-      {renderEdit(formik, editTodo, data.id)}
+      {renderEdit(formik, todo, editTodo, setTodo)}
+      {renderTimer(todo)}
       {renderAction('delete')}
     </form>
   );
