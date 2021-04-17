@@ -1,4 +1,5 @@
 import React from 'react';
+import CompletedTodo from './CompletedTodo';
 import Header from './Header';
 
 class HistoryTodo extends React.Component {
@@ -6,6 +7,7 @@ class HistoryTodo extends React.Component {
     return (
       <div>
         <Header />
+        <CompletedTodo />
       </div>
     );
   }

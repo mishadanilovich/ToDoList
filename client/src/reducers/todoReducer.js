@@ -4,6 +4,7 @@ import {
   FETCH_TODOLIST,
   DELETE_TODOLIST,
   FETCH_TODO,
+  EDIT_TODO,
   COMPLETED_TODO,
 } from '../actions/types';
 
@@ -17,6 +18,8 @@ const todoReducer = (state = {}, action) => {
       return { ...state, [action.payload.id]: action.payload };
     case DELETE_TODOLIST:
       return _.omit(state, action.payload);
+    case EDIT_TODO:
+      return { ...state, [action.payload.id]: action.payload };
     case COMPLETED_TODO:
       return { ...state, [action.payload.id]: action.payload };
     default:

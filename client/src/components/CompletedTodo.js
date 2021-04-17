@@ -1,5 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
 import { connect } from 'react-redux';
 import { fetchTodoList } from '../actions';
 import Todo from './Todo';
@@ -19,10 +18,7 @@ class CompletedTodo extends React.Component {
 
       return (
         <div key={todo.id}>
-          <Todo
-            initialValues={_.pick(todo, 'title', 'description')}
-            id={todo.id}
-          />
+          <Todo data={todo} />
         </div>
       );
     });
