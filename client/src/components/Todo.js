@@ -1,59 +1,89 @@
-import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import React, { useState, useEffect } from 'react';
+import { useFormik } from 'formik';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { completedTodo, fetchTodoList } from '../actions';
+import { completedTodo, editTodo } from '../actions';
 import cross from '../img/delete.svg';
 import confirm from '../img/confirm.svg';
+import save from '../img/save.svg';
+import calendar from '../img/calendar.svg';
 import '../style/Todo.css';
 
-class Todo extends React.Component {
-  onToggleStatus = event => {
-    event.preventDefault();
-
-    this.props.completedTodo(
-      this.props.id,
-      this.props.todo[this.props.id].status ? false : true
-    );
-  };
-
-  renderInput({ input, label }) {
+const renderEdit = ({ values }, todo, editTodo, setTodo) => {
+  if (
+    (!(todo.title === values.title) ||
+      !(todo.description === values.description)) &&
+    !todo.status
+  )
     return (
-      <input
-        className={`field field__${
-          label === 'title' ? 'title' : 'description'
-        }`}
-        {...input}
-        autoComplete="off"
-      />
+      <button
+        type="submit"
+        onClick={e => {
+          e.preventDefault();
+          editTodo(todo.id, values);
+          setTodo(values);
+        }}
+        className="adding__edit"
+      >
+        <div className="adding__circle">
+          <img src={save} alt="Pencil" className="adding__edit-icon" />
+        </div>
+      </button>
+    );
+};
+
+const renderCheckmark = status => {
+  if (status)
+    return <img src={confirm} alt="confirm" className="adding__confirm-icon" />;
+};
+
+const onToggleStatus = (event, todo, completedTodo) => {
+  event.preventDefault();
+
+  completedTodo(todo.id, todo.status ? false : true);
+};
+
+const renderTimer = todo => {
+  if (todo.status) {
+    const date = new Date().toLocaleDateString();
+    return (
+      <div className="date">
+        <p className="date__content">{date}</p>
+        <img src={calendar} alt="Calendar" className="adding__calendar-icon" />
+      </div>
     );
   }
+};
 
-  renderCheckmark() {
-    if (this.props.todo[this.props.id].status)
-      return (
-        <img src={confirm} alt="confirm" className="adding__confirm-icon" />
-      );
-  }
+const Todo = ({ completedTodo, editTodo, data }) => {
+  const [todo, setTodo] = useState({});
 
-  renderAction = action => {
+  const formik = useFormik({
+    initialValues: data,
+    onSubmit: values => {
+      setTodo(values);
+    },
+  });
+
+  useEffect(() => {
+    setTodo(formik.initialValues);
+  }, [formik.initialValues]);
+
+  const renderAction = action => {
     if (action === 'confirm') {
       return (
         <button
-          onClick={e => this.onToggleStatus(e)}
+          onClick={e => onToggleStatus(e, todo, completedTodo)}
           className="adding__confirm"
         >
-          <div className="adding__circle">{this.renderCheckmark()}</div>
+          <div className="adding__circle">{renderCheckmark(todo.status)}</div>
         </button>
       );
     }
 
     if (action === 'delete') {
       return (
-        <Link
-          to={`/todolist/delete/${this.props.id}`}
-          className="adding__delete"
-        >
+        <Link to={`/todolist/delete/${todo.id}`} className="adding__delete">
           <div className="adding__circle">
             <img src={cross} alt="cross" className="adding__delete-icon" />
           </div>
@@ -62,30 +92,33 @@ class Todo extends React.Component {
     }
   };
 
-  render() {
-    return (
-      <form>
-        <div className="adding__note">
-          {this.renderAction('confirm')}
-          <Field name="title" component={this.renderInput} label="title" />
-          <Field
-            name="description"
-            component={this.renderInput}
-            label="description"
-          />
-          {this.renderAction('delete')}
-        </div>
-      </form>
-    );
-  }
-}
+  return (
+    <form className="adding__note">
+      {renderAction('confirm')}
+      <input
+        id="title"
+        name="title"
+        type="text"
+        onChange={formik.handleChange}
+        value={formik.values.title}
+        className="field field__title"
+        autoComplete="off"
+      />
 
-const setupReduxForm = reduxForm({ form: 'todo' })(Todo);
-
-const mapStateToProps = state => {
-  return { todo: state.todoList };
+      <input
+        id="description"
+        name="description"
+        type="text"
+        onChange={formik.handleChange}
+        value={formik.values.description}
+        className="field field__description"
+        autoComplete="off"
+      />
+      {renderEdit(formik, todo, editTodo, setTodo)}
+      {renderTimer(todo)}
+      {renderAction('delete')}
+    </form>
+  );
 };
 
-export default connect(mapStateToProps, { completedTodo, fetchTodoList })(
-  setupReduxForm
-);
+export default connect(null, { completedTodo, editTodo })(Todo);

@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import _ from 'lodash';
 
 import { fetchTodoList } from '../actions';
 import Todo from './Todo';
@@ -22,10 +21,7 @@ class NewTodo extends React.Component {
 
       return (
         <div key={todo.id}>
-          <Todo
-            initialValues={_.pick(todo, 'title', 'description')}
-            id={todo.id}
-          />
+          <Todo data={todo} />
         </div>
       );
     });

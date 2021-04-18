@@ -3,6 +3,7 @@ import {
   DELETE_TODOLIST,
   FETCH_TODOLIST,
   FETCH_TODO,
+  EDIT_TODO,
   COMPLETED_TODO,
 } from './types';
 import history from '../history';
@@ -35,6 +36,12 @@ export const deleteTodoList = id => async dispatch => {
 
   dispatch({ type: DELETE_TODOLIST, payload: id });
   history.push('/');
+};
+
+export const editTodo = (id, formValues) => async dispatch => {
+  const response = await todoList.patch(`/todoList/${id}`, formValues);
+
+  dispatch({ type: EDIT_TODO, payload: response.data });
 };
 
 export const completedTodo = (id, checked) => async dispatch => {

@@ -1,9 +1,9 @@
 .dimmer {
-  background-color: #ffeac0e0 !important;
+  background-color: #ffeac0cc !important;
 }
 
 .modal__box {
-  height: 25rem;
+  height: 30rem;
   width: 50rem;
   background: rgb(255, 210, 152);
   border-radius: 2rem;
@@ -20,4 +20,8 @@
   font-style: normal;
   font-weight: normal;
   text-align: center;
+}
+
+.modal__box-content {
+  height: 80%;
 }

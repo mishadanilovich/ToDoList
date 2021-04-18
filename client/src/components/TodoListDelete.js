@@ -17,7 +17,8 @@ class TodoListDelete extends React.Component {
   };
 
   renderTitle() {
-    if (!this.props.todo) return 'Are you sure you want to delete this note?';
+    if (!this.props.todo || !this.props.todo.title)
+      return 'Are you sure you want to delete this note?';
 
     return `Are you sure you want to delete "${this.props.todo.title}" note?`;
   }
@@ -27,7 +28,7 @@ class TodoListDelete extends React.Component {
       <div className="delete">
         <h3 className="delete__title">{this.renderTitle()}</h3>
         <div className="actions">
-          <button onClick={this.onClick} className="button button__add">
+          <button onClick={this.onClick} className="button button__action">
             Delete
           </button>
           <Link to="/" className="button button__cancel">

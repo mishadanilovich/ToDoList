@@ -1,5 +1,9 @@
 .delete {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   height: 12rem;
+  margin-top: 7rem;
 }
 
 .delete__title {
