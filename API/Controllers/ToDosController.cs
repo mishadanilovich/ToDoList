@@ -14,10 +14,12 @@ namespace API.Controllers
     public class ToDosController
     {
         private readonly ITodoRepository _repository;
+        private readonly TodoScheduler _scheduler;
 
-        public ToDosController(ITodoRepository repository)
+        public ToDosController(ITodoRepository repository, TodoScheduler scheduler)
         {
             _repository = repository;
+            _scheduler = scheduler;
         }  
         
         [HttpGet]
@@ -33,9 +35,14 @@ namespace API.Controllers
         }
         
         [HttpPatch("{id}")]
-        public async Task<ToDo> UpdateTaskStatus([FromRoute] int id, [FromBody] ChangeStatusDto status)
+        public async Task<ToDo> UpdateTaskStatus([FromRoute] int id, [FromBody] ChangeStatusDto statusDto)
         {
-            return await _repository.SetToDoStatusById(id, status.Status);
+            bool status = statusDto.Status;
+            var todo = await _repository.SetToDoStatusById(id, status);
+            
+            if (status) _scheduler.DelayToDo(id);
+            
+            return todo;
         }
 
         [HttpPost]

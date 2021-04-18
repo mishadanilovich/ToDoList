@@ -33,7 +33,19 @@ namespace API
             {
                 opt.UseMySql(Configuration.GetConnectionString("defaultConnection"), new MySqlServerVersion(new Version(8, 0, 10)));
             });
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("AllowSpecificOrigin", builder =>
+                {
+                    builder.WithOrigins("http://localhost:3000");
+                });
+            });
+            
+            services.AddSingleton<TodoScheduler>();
             services.AddScoped<ITodoRepository, TodoRepository>();
+            services.AddScoped<IHistoryRepository, HistoryRepository>();
+            
+            
             services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "API", Version = "v1"}); });
         }

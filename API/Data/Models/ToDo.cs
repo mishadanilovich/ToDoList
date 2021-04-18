@@ -1,4 +1,6 @@
-﻿namespace API.Data
+﻿using System;
+
+namespace API.Data
 {
     public class ToDo
     {
@@ -7,7 +9,9 @@
         public string Title { get; set; }
 
         public string Description { get; set; }
+        
+        public DateTime CompletionDate { get; set; } = DateTime.MinValue;
 
-        public bool Completed { get; set; }
+        public bool IsCompleted { get; set; }
     }
 }

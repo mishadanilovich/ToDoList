@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Data;
 using API.Data.DTOs;
@@ -33,7 +34,7 @@ namespace API.Services
             {
                 Title = todoDto.Title,
                 Description = todoDto.Description,
-                Completed = false
+                IsCompleted = false
             };
             
             await _context.ToDos.AddAsync(newTodo);
@@ -53,8 +54,11 @@ namespace API.Services
         public async Task<ToDo> SetToDoStatusById(int id, bool status)
         {
             var todo = await GetTodoById(id);
-            todo.Completed = status;
+            todo.IsCompleted = status;
 
+            if (!status) todo.CompletionDate = DateTime.MinValue;
+            else todo.CompletionDate = DateTime.Now;
+            
             await _context.SaveChangesAsync();
 
             return todo;
