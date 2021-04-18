@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authentication.Certificate;
 
 namespace API
 {
@@ -30,17 +31,22 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).AddCertificate();
+
             services.AddDbContext<DBContext>(opt =>
             {
                 opt.UseMySql(Configuration.GetConnectionString("defaultConnection"), new MySqlServerVersion(new Version(8, 0, 10)));
             });
-            services.AddCors(opt =>
-            {
-                opt.AddPolicy("AllowSpecificOrigin", builder =>
-                {
-                    builder.WithOrigins("http://localhost:3000");
+
+           services.AddCors(options => { 
+            options.AddDefaultPolicy( builder => {
+                builder.WithOrigins("http://localhost:3000")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials();
                 });
             });
+
             
             services.AddSingleton<TodoScheduler>();
             services.AddScoped<ITodoRepository, TodoRepository>();
@@ -57,6 +63,9 @@ namespace API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseAuthentication();
+            app.UseCors();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

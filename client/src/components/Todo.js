@@ -40,15 +40,15 @@ const renderCheckmark = status => {
 const onToggleStatus = (event, todo, completedTodo) => {
   event.preventDefault();
 
-  completedTodo(todo.id, todo.status ? false : true);
+  completedTodo(todo.id, todo.isCompleted ? false : true);
 };
 
 const renderTimer = todo => {
-  if (todo.status) {
-    const date = new Date().toLocaleDateString();
+  if (todo.isCompleted) {
+    console.log(todo);
     return (
       <div className="date">
-        <p className="date__content">{date}</p>
+        <p className="date__content">{todo.completionDate}</p>
         <img src={calendar} alt="Calendar" className="adding__calendar-icon" />
       </div>
     );
@@ -76,7 +76,9 @@ const Todo = ({ completedTodo, editTodo, data }) => {
           onClick={e => onToggleStatus(e, todo, completedTodo)}
           className="adding__confirm"
         >
-          <div className="adding__circle">{renderCheckmark(todo.status)}</div>
+          <div className="adding__circle">
+            {renderCheckmark(todo.isCompleted)}
+          </div>
         </button>
       );
     }

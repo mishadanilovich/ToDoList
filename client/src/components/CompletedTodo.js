@@ -15,7 +15,7 @@ class CompletedTodo extends React.Component {
     if (!this.props.todoList) return <div>Loading...!</div>;
 
     return this.props.todoList.map(todo => {
-      if (!todo.status) return null;
+      if (!todo.isCompleted) return null;
 
       return (
         <div key={todo.id}>
