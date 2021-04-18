@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using API.Data;
 
-namespace API.Services
+namespace API.Services.Interfaces
 {
     public interface IHistoryRepository
     {

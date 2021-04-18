@@ -25,7 +25,7 @@ namespace API.Services
 
         public async Task<ToDo> GetTodoById(int id)
         {
-            return await _context.ToDos.FirstOrDefaultAsync(todo => todo.Id == id);
+            return await _context.ToDos.FirstAsync(todo => todo.Id == id);
         }
 
         public async Task<ToDo> CreateTodo(CreateTodoDto todoDto)
@@ -46,7 +46,7 @@ namespace API.Services
         public async Task<bool> DeleteTodoById(int id)
         {
             var todo = await GetTodoById(id);
-            _context.ToDos.Remove(todo);
+            if (todo != null) _context.ToDos.Remove(todo);
 
             return await _context.SaveChangesAsync() == 1;
         }

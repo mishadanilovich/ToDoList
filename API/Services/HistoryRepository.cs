@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using API.Data;
 using API.Persistence;
+using API.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Services
@@ -42,7 +43,7 @@ namespace API.Services
         public async Task<bool> DeleteHistoryItemAsync(int id)
         {
             var historyTodo = await _context.History.FirstAsync(hi => hi.Id == id);
-            _context.Remove(historyTodo);
+            if (historyTodo != null) _context.Remove(historyTodo);
 
             return await _context.SaveChangesAsync() == 1;
         }
