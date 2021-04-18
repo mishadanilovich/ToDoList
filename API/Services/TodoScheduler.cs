@@ -24,7 +24,7 @@ namespace API.Services
         {
             var scheduledTask = new Task(async () =>
             {
-                await Task.Delay(TimeSpan.FromSeconds(12), CancellationToken.None);
+                await Task.Delay(TimeSpan.FromDays(1), CancellationToken.None);
                 using var scope = _serviceScopeFactory.CreateScope();
                 var _context = scope.ServiceProvider.GetRequiredService<DBContext>();
                 var todo = await _context.ToDos.FindAsync(id);

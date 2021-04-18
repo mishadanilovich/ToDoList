@@ -43,6 +43,18 @@ namespace API.Services
             return newTodo;
         }
 
+        public async Task<ToDo> UpdateTodo(int id, UpdateToDoDto todoDto)
+        {
+            var todo = await GetTodoById(id);
+
+            todo.Title = todoDto.Title;
+            todo.Description = todoDto.Description;
+
+            await _context.SaveChangesAsync();
+
+            return todo;
+        }
+
         public async Task<bool> DeleteTodoById(int id)
         {
             var todo = await GetTodoById(id);

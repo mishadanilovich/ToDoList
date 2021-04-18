@@ -13,7 +13,9 @@ namespace API.Services
 
         public Task<ToDo> CreateTodo(CreateTodoDto todoDto);
 
-        public Task<bool> DeleteTodoById(int id);
+         public Task<ToDo> UpdateTodo(int id, UpdateToDoDto todoDto);
+
+         public Task<bool> DeleteTodoById(int id);
 
         public Task<ToDo> SetToDoStatusById(int id, bool status);
     }
