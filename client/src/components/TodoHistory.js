@@ -1,16 +1,30 @@
-import React from 'react';
-import CompletedTodo from './CompletedTodo';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { fetchTodoHistory } from '../actions';
 import Header from './Header';
+import HistoryItem from './HistoryItem';
 
-class HistoryTodo extends React.Component {
-  render() {
-    return (
-      <div>
-        <Header />
-        <CompletedTodo />
-      </div>
-    );
-  }
-}
+const renderTodo = todoHistory => {
+  return todoHistory.map(todo => {
+    return <HistoryItem key={todo.id} todo={todo} />;
+  });
+};
 
-export default HistoryTodo;
+const HistoryTodo = props => {
+  useEffect(() => {
+    props.fetchTodoHistory();
+  }, []);
+
+  return (
+    <div>
+      <Header />
+      {renderTodo(props.todoHistory)}
+    </div>
+  );
+};
+
+const mapStateToProps = state => {
+  return { todoHistory: Object.values(state.todoHistory) };
+};
+
+export default connect(mapStateToProps, { fetchTodoHistory })(HistoryTodo);

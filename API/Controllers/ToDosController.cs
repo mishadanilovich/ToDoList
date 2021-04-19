@@ -51,7 +51,7 @@ namespace API.Controllers
             return await _repository.CreateTodo(todoDto);
         }
 
-        [HttpPost("{id}")]
+        [HttpPut("{id}")]
         public async Task<ToDo> UpdateTask([FromRoute] int id, [FromBody] UpdateToDoDto toDoDto)
         {
             return await _repository.UpdateTodo(id, toDoDto);

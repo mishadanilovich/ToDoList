@@ -13,7 +13,7 @@ const renderEdit = ({ values }, todo, editTodo, setTodo) => {
   if (
     (!(todo.title === values.title) ||
       !(todo.description === values.description)) &&
-    !todo.status
+    !todo.isCompleted
   )
     return (
       <button
@@ -45,10 +45,9 @@ const onToggleStatus = (event, todo, completedTodo) => {
 
 const renderTimer = todo => {
   if (todo.isCompleted) {
-    console.log(todo);
     return (
       <div className="date">
-        <p className="date__content">{todo.completionDate}</p>
+        <p className="date__content">{todo.completionDate.substr(0, 10)}</p>
         <img src={calendar} alt="Calendar" className="adding__calendar-icon" />
       </div>
     );
@@ -105,6 +104,7 @@ const Todo = ({ completedTodo, editTodo, data }) => {
         value={formik.values.title}
         className="field field__title"
         autoComplete="off"
+        disabled={todo.isCompleted ? 'disabled' : ''}
       />
 
       <input
@@ -115,6 +115,7 @@ const Todo = ({ completedTodo, editTodo, data }) => {
         value={formik.values.description}
         className="field field__description"
         autoComplete="off"
+        disabled={todo.isCompleted ? 'disabled' : ''}
       />
       {renderEdit(formik, todo, editTodo, setTodo)}
       {renderTimer(todo)}
