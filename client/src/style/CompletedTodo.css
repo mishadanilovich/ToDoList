@@ -1,0 +1,20 @@
+.completedTodo {
+  margin-top: 3rem;
+}
+
+.completedTodo__title {
+  font-size: 4.2rem;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  text-align: center;
+  text-decoration: none;
+  color: #000;
+
+  margin-bottom: 2.8rem;
+}
+
+.completed {
+  height: 27rem;
+  overflow-y: auto;
+}

@@ -1,0 +1,27 @@
+.dimmer {
+  background-color: #ffeac0cc !important;
+}
+
+.modal__box {
+  height: 30rem;
+  width: 50rem;
+  background: rgb(255, 210, 152);
+  border-radius: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.modal__box-title {
+  font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-size: 4rem;
+  font-family: Lemon;
+  font-style: normal;
+  font-weight: normal;
+  text-align: center;
+}
+
+.modal__box-content {
+  height: 80%;
+}
