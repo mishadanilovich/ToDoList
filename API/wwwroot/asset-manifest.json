@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.3e099136.chunk.css",
+    "main.js": "/static/js/main.d25bb076.chunk.js",
+    "main.js.map": "/static/js/main.d25bb076.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.03887cff.js",
+    "runtime-main.js.map": "/static/js/runtime-main.03887cff.js.map",
+    "static/js/2.c1acfe1b.chunk.js": "/static/js/2.c1acfe1b.chunk.js",
+    "static/js/2.c1acfe1b.chunk.js.map": "/static/js/2.c1acfe1b.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.3e099136.chunk.css.map": "/static/css/main.3e099136.chunk.css.map",
+    "static/js/2.c1acfe1b.chunk.js.LICENSE.txt": "/static/js/2.c1acfe1b.chunk.js.LICENSE.txt",
+    "static/media/arrow-up.ab317b3b.svg": "/static/media/arrow-up.ab317b3b.svg",
+    "static/media/calendar.aab8d423.svg": "/static/media/calendar.aab8d423.svg",
+    "static/media/confirm.3bd4c654.svg": "/static/media/confirm.3bd4c654.svg",
+    "static/media/delete.307efb8d.svg": "/static/media/delete.307efb8d.svg",
+    "static/media/history.04a5aa17.svg": "/static/media/history.04a5aa17.svg",
+    "static/media/home.2ca6a2ac.svg": "/static/media/home.2ca6a2ac.svg",
+    "static/media/plus.f5927ca9.svg": "/static/media/plus.f5927ca9.svg",
+    "static/media/save.60e32a3f.svg": "/static/media/save.60e32a3f.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.03887cff.js",
+    "static/js/2.c1acfe1b.chunk.js",
+    "static/css/main.3e099136.chunk.css",
+    "static/js/main.d25bb076.chunk.js"
+  ]
+}
