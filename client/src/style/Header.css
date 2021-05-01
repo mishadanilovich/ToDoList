@@ -18,3 +18,15 @@
   right: 5.8rem;
   top: 5.4rem;
 }
+
+@media only screen and (max-width: 550px) {
+  .header__history-link {
+    right: 1rem;
+  }
+}
+
+@media only screen and (max-width: 950px) {
+  .header__history-icon {
+    height: 4rem;
+  }
+}
