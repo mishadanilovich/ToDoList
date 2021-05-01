@@ -1,18 +1,41 @@
-* {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: inherit;
 }
 
-html,
-body {
+html {
+  box-sizing: border-box;
   font-size: 62.5%;
-  text-rendering: optimizeLegibility;
+}
+
+body {
+  /* text-rendering: optimizeLegibility; */
   overflow-x: hidden;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   color: #4c4a4d;
+}
+
+@media only screen and (max-width: 950px) {
+  html {
+    font-size: 50%;
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  html {
+    font-size: 40%;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  html {
+    font-size: 35%;
+  }
 }
 
 body {

@@ -1,7 +1,11 @@
+.newTodo {
+  padding: 2rem;
+}
+
 .newTodo::after {
   content: '';
   display: block;
-  width: 103%;
+  width: 100%;
   height: 2px;
   background: #000;
 }
@@ -10,6 +14,7 @@
   height: 27rem;
   overflow-y: auto;
   margin-bottom: 3rem;
+  padding-right: 1rem;
 }
 
 .adding__new-note {
@@ -35,6 +40,12 @@
 .adding__new-note:visited,
 .adding__new-note:link {
   color: #000;
+}
+
+@media only screen and (max-width: 950px) {
+  .adding__new-note_icon {
+    height: 4rem;
+  }
 }
 
 ::-webkit-scrollbar-button {

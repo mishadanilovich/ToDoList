@@ -1,6 +1,6 @@
 .adding__note {
   display: flex;
-  width: 134rem;
+  max-width: 134rem;
   height: 4.6rem;
   margin: 0 auto;
   background: #ffeac0;
@@ -29,6 +29,12 @@
   outline: none;
 }
 
+@media only screen and (max-width: 950px) {
+  .adding__confirm-icon {
+    height: 1.2rem;
+  }
+}
+
 .adding__circle {
   width: 3.2rem;
   height: 3.2rem;
@@ -51,12 +57,18 @@
   font-weight: normal;
 }
 
+@media only screen and (max-width: 950px) {
+  .field {
+    padding-left: 0.5rem;
+  }
+}
+
 .field__title {
-  width: 35rem;
+  width: 35%;
 }
 
 .field__description {
-  width: 100%;
+  width: 90%;
 }
 
 .adding__delete {

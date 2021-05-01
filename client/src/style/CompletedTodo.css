@@ -1,5 +1,6 @@
 .completedTodo {
   margin-top: 3rem;
+  padding: 2rem;
 }
 
 .completedTodo__title {
@@ -17,4 +18,5 @@
 .completed {
   height: 27rem;
   overflow-y: auto;
+  padding-right: 1rem;
 }
